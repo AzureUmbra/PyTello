@@ -1,4 +1,4 @@
-from telloUDP import SimpleTelloUDP
+from _telloUDP import SimpleTelloUDP
 from time import sleep
 from pickle import load, dump
 
