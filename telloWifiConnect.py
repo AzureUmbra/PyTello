@@ -41,20 +41,20 @@ while flag:
         print('\n\n\nError entering command mode.\nEnsure {} is powered on, hold the power button for 5 seconds, and try again.'.format(name))
         break
 
-    if recv1[0].decode() == 'ok' and recv2[0].decode() == 'OK,drone will reboot in 3s':
-        print()
-        input('{0} is now ready to connect to WiFi. Ensure {0} is powered on.\nPress ENTER to Continue...'.format(name))
-        print('Check your Wifi Router for the IP of {}. If it does not appear, enter N.'.format(name))
-        ip = input('Please enter the IP: ')
-
-        if ip.lower() == 'n':
-            print('\nCheck your SSID and Password.\nEnsure {} is powered on, hold the power button for 5 seconds, and try again.'.format(name))
-            break
-        else:
-            wifiTellos[name] = ip
-            dump(wifiTellos, open('wifiTellos.p', 'wb'))
-            print()
-            input('{0} configuration complete! Please power down {0}.\nPress ENTER to Continue...'.format(name))
+    # if recv1[0].decode() == 'ok' and recv2[0].decode() == 'OK,drone will reboot in 3s':
+    #     print()
+    #     input('{0} is now ready to connect to WiFi. Ensure {0} is powered on.\nPress ENTER to Continue...'.format(name))
+    #     print('Check your Wifi Router for the IP of {}. If it does not appear, enter N.'.format(name))
+    #     ip = input('Please enter the IP: ')
+    #
+    #     if ip.lower() == 'n':
+    #         print('\nCheck your SSID and Password.\nEnsure {} is powered on, hold the power button for 5 seconds, and try again.'.format(name))
+    #         break
+    #     else:
+    #         wifiTellos[name] = ip
+    #         dump(wifiTellos, open('wifiTellos.p', 'wb'))
+    #         print()
+    input('{0} configuration complete! Please power down {0}.\nPress ENTER to Continue...'.format(name))
 
 
 
