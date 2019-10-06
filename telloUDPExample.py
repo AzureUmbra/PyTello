@@ -1,4 +1,4 @@
-from telloUDP import TelloUDP
+from telloUDP import TelloUDP, TelloError
 from time import sleep
 
 if __name__ == '__main__':  # Ensure all files that use TelloUDP have this or threading errors occur

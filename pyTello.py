@@ -33,13 +33,15 @@ class PyTello():
         :param command: str- A command from Tello SDK 2.0
         :return: tuple- (message from tello, ip of tello, time received)
         """
+        previousCommands = self.tello.getCommand()
+
         cmd = self.tello.sendCommand(self.ip,command)
         if cmd is not type(TelloError):
             flag = time()
             while time()-flag <= self.timeout:
                 data = self.tello.getCommand()
                 if data != []:
-                    return data
+                    return previousCommands.append(data)
             return TelloError(3)
         else:
             return cmd
