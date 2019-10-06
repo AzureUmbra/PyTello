@@ -48,8 +48,8 @@ class TelloUDP():
 
         self.commandSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.commandSocket.bind(('', 8889))
-        self.dataSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.dataSocket.bind(('', 8890))
+        #self.dataSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        #self.dataSocket.bind(('', 8890))
 
         self.dataProcess = Process(target=self._telloDataThread, args=(self.exitFlag,self.dataQueue,self.dataSocket,))
         self.commandProcess = Process(target=self._telloCommandThread, args=(self.exitFlag, self.commandQueue, self.commandSocket,))
@@ -57,15 +57,16 @@ class TelloUDP():
         sleep(1)
 
     def start(self):
-        self.dataProcess.start()
+        #self.dataProcess.start()
         self.commandProcess.start()
         self.commandReturnProcess.start()
         sleep(1)
-        return True if self.dataProcess.is_alive() and self.commandProcess.is_alive() and self.commandReturnProcess.is_alive() else False
+        #return True if self.dataProcess.is_alive() and self.commandProcess.is_alive() and self.commandReturnProcess.is_alive() else TelloError(2)
+        return True if self.commandProcess.is_alive() and self.commandReturnProcess.is_alive() else TelloError(2)
 
     def stop(self):
         self.exitFlag.set()
-        self.dataProcess.join()
+        #self.dataProcess.join()
         self.commandReturnProcess.join()
         self.commandQueue.put('Process End')
         self.commandProcess.join()
@@ -95,7 +96,8 @@ class TelloUDP():
         sockCmdRet.close()
 
     def threadAlive(self):
-        return self.dataProcess.is_alive(),self.commandProcess.is_alive()
+        #return self.dataProcess.is_alive(),self.commandProcess.is_alive()
+        return self.commandProcess.is_alive()
 
     def getData(self):
         data = []
@@ -103,7 +105,7 @@ class TelloUDP():
             try:
                 data.append(self.dataQueue.get(timeout=3))
             except:
-                return False
+                return TelloError(0)
         return data
 
     def sendCommand(self,ip,command):
@@ -111,7 +113,7 @@ class TelloUDP():
             self.commandQueue.put((command, ip),timeout=3)
             return True
         except:
-            return False
+            return TelloError(1)
 
     def getCommand(self):
         data = []
@@ -119,5 +121,14 @@ class TelloUDP():
             try:
                 data.append(self.commandResponseQueue.get(timeout=3))
             except:
-                return False
+                return TelloError(0)
         return data
+
+class TelloError():
+    def __init__(self,error,info=None):
+        self.error = error
+        self.errorList = {0:'Timeout on Read',1:'Timeout on Write',2:'Failure to Start Thread',3:'Timeout on Receiving Data',4:'Unknown Tello'}
+        self.additionalInfo = info
+
+    def __str__(self):
+        return "Error Code {}: {}\n{}".format(self.error,self.errorList[self.error],self.additionalInfo)
