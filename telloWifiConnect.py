@@ -1,13 +1,13 @@
-from _telloUDP import SimpleTelloUDP
+from telloUDP import SimpleTelloUDP
 from time import sleep
 from pickle import load, dump
 
-try:
-    wifiTellos = load(open('wifiTellos.p','rb'))
-
-except:
-    wifiTellos = {}
-    dump(wifiTellos,open('wifiTellos.p','wb'))
+# try:
+#     wifiTellos = load(open('wifiTellos.p','rb'))
+#
+# except:
+#     wifiTellos = {}
+#     dump(wifiTellos,open('wifiTellos.p','wb'))
 
 ssid = input('Please enter the SSID of the Wifi Network: ')
 password = input('Please enter the Password of the Wifi Network: ')
@@ -20,7 +20,8 @@ while flag:
     input('Please connect your computer to your Tello.\nPress ENTER to Continue...')
 
     print()
-    name = input('Please enter a name for this Tello: ')
+    #name = input('Please enter a name for this Tello: ')
+    name = 'tello'
     print('\n\nNow connecting to {}...'.format(name))
 
     tello = SimpleTelloUDP('192.168.10.1',startWithData=False)

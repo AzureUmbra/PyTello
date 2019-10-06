@@ -1,4 +1,4 @@
-from _telloUDP import TelloUDP
+from telloUDP import TelloUDP
 from time import sleep
 
 if __name__ == '__main__':  # Ensure all files that use TelloUDP have this or threading errors occur
@@ -21,25 +21,33 @@ if __name__ == '__main__':  # Ensure all files that use TelloUDP have this or th
     print('Takeoff')
     tello.sendCommand(ip,'takeoff')
 
-    sleep(5)
+    # Wait for the tello to respond that it is done with the previous command
+    while tello.getCommand() == []:
+        sleep(0.1)
 
     # Send the tello forward 100cm
     print('forward')
     tello.sendCommand(ip,'forward 100')
 
-    sleep(10)
+    # Wait for the tello to respond that it is done with the previous command
+    while tello.getCommand() == []:
+        sleep(0.1)
 
     # Bring the tello back 100cm
     print('back')
     tello.sendCommand(ip,'back 100')
 
-    sleep(10)
+    # Wait for the tello to respond that it is done with the previous command
+    while tello.getCommand() == []:
+        sleep(0.1)
 
     # Rotate 360 degrees
     print('rotate')
     tello.sendCommand(ip,'cw 360')
 
-    sleep(10)
+    # Wait for the tello to respond that it is done with the previous command
+    while tello.getCommand() == []:
+        sleep(0.1)
 
     # Tell the tello to land
     print('land')
