@@ -29,6 +29,7 @@ on, and then press and hold the power button for 5 seconds.
 4. On the next line, add `from pyTello import PyTello`
 5. Skip down a few lines and add `if __name__ == '__main__':`
 6. All of your tello code will go here, indented one tab. See *pyTelloExample.py* for some example code.
+7. Take a look at the *Tello SDK 2.0 User Guide* for all of the commands.
 ## Programming Your Tello
 1. Import PyTello from pyTello.
 2. Import TelloError from telloUDP (not sure why this isn't automatic, but oh well).
