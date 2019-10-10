@@ -40,7 +40,7 @@ class test():
 
     def start(self):
         if self.ipRE.match(self.connect.ip.text()):
-            self.tello.start()
+            #self.tello.start()
             self.ip = self.connect.ip.text()
             self.connectWindow.close()
             self.mainWindow.show()
@@ -54,7 +54,7 @@ class test():
         if reply == QtWidgets.QMessageBox.Yes:
             self.exitFlag.set()
             self.commandProcess.join()
-            self.tello.stop()
+            #self.tello.stop()
             del self.tello
             event.accept()
         else:
