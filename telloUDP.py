@@ -51,7 +51,7 @@ class TelloUDP():
         #self.dataSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         #self.dataSocket.bind(('', 8890))
 
-        self.dataProcess = Process(target=self._telloDataThread, args=(self.exitFlag,self.dataQueue,self.dataSocket,))
+        #self.dataProcess = Process(target=self._telloDataThread, args=(self.exitFlag,self.dataQueue,self.dataSocket,))
         self.commandProcess = Process(target=self._telloCommandThread, args=(self.exitFlag, self.commandQueue, self.commandSocket,))
         self.commandReturnProcess = Process(target=self._telloCommandReturnThread, args=(self.exitFlag, self.commandResponseQueue, self.commandSocket,))
         sleep(1)
